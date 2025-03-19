@@ -9,5 +9,6 @@ public interface ISudokuAlgorythm
 {
 	public void GenerateNextGeneration();
 	public PopulationStatistics GetPopulationStatistics();
+	public bool IsSolved();
 }
 

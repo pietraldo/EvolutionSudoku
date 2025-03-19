@@ -1,10 +1,14 @@
-﻿namespace EvolutionSudoku
+﻿namespace EvolutionSudoku;
+
+public class Program
 {
-	internal class Program
+	static void Main(string[] args)
 	{
-		static void Main(string[] args)
-		{
-			Console.WriteLine("Hello, World!");
-		}
+		SudokuBoard board = new SudokuBoard();
+		SudokuSolver solver = new SudokuSolver();
+		solver.SetBoard(board);
+		DNA dna = solver.Solve();
+		dna.Print();
 	}
 }
+

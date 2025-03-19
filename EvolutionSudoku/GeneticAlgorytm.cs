@@ -5,6 +5,27 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EvolutionSudoku;
-public class GeneticAlgorytm
+public class GeneticAlgorytm : ISudokuAlgorythm
 {
+	public DNA[] Population;
+
+	public GeneticAlgorytm(AlgorytmParameters algorytmParameters)
+	{
+		// generates randomly population
+	}
+
+	public void GenerateNextGeneration()
+	{
+		throw new NotImplementedException();
+	}
+
+	public PopulationStatistics GetPopulationStatistics()
+	{
+		throw new NotImplementedException();
+	}
+
+	public bool IsSolved()
+	{
+		throw new NotImplementedException();
+	}
 }

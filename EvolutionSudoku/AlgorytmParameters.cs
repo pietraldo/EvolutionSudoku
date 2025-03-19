@@ -5,18 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EvolutionSudoku;
-public class DNA
+public class AlgorytmParameters
 {
-	public int[] digits;
-
-	public DNA(int[] digits)
-	{ 
-		this.digits = digits; 
-	}
-
-	public void Print()
-	{
-
-	}
+	public int PopulationCount { get; set; }
+	public int SelectedBestCount { get; set; }
 }
 
