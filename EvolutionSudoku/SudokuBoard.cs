@@ -26,6 +26,11 @@ public class SudokuBoard
 
 	}
 
+	public void LoadFromFile(string path)
+	{
+		return;
+	}
+
 	public void Print()
 	{
 		return;
