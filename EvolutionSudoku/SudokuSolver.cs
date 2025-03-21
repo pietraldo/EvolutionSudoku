@@ -19,7 +19,9 @@ namespace EvolutionSudoku
 		}
 		public DNA Solve()
 		{
-			ISudokuAlgorythm algorythm = new EvolutionAlgorytm(new AlgorytmParameters());
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(5,2,0.1f,10,2);
+
+			ISudokuAlgorythm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			while(!algorythm.IsSolved())
 			{
 				algorythm.GenerateNextGeneration();

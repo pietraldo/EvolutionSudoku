@@ -22,5 +22,13 @@ public class DNA
 		}
         Console.WriteLine();
     }
+
+	public void SetRandomDNA()
+	{
+		for (int i = 0; i < digits.Length; i++)
+		{
+			digits[i] = new Random().Next(1, 10);
+		}
+	}
 }
 

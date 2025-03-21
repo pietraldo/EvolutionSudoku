@@ -8,10 +8,21 @@ namespace EvolutionSudoku;
 public class GeneticAlgorytm : ISudokuAlgorythm
 {
 	public DNA[] Population;
+	public readonly SudokuBoard Board;
 
-	public GeneticAlgorytm(AlgorytmParameters algorytmParameters)
+	public GeneticAlgorytm(AlgorytmParameters algorytmParameters, SudokuBoard board)
 	{
 		// generates randomly population
+		Population = new DNA[algorytmParameters.PopulationCount];
+		Board = board;
+		for(int i = 0; i < algorytmParameters.PopulationCount; i++)
+		{
+			Population[i] = new DNA(new int[board.CountEmptyFields()]);
+		}
+		foreach (DNA dna in Population)
+		{
+			dna.SetRandomDNA();
+		}
 	}
 
 	public void GenerateNextGeneration()
@@ -26,6 +37,6 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 
 	public bool IsSolved()
 	{
-		throw new NotImplementedException();
+		return false;
 	}
 }
