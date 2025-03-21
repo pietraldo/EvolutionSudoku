@@ -76,6 +76,7 @@ public class SudokuBoard
 
 	public void Print()
 	{
+		bool[,] wrongFields = WrongFields();
 		int i, j;
 		for (i = 0; i < 9; i++)
 		{
@@ -95,15 +96,49 @@ public class SudokuBoard
 					continue;
 				}
 				if (j % 3 == 0)
-					Console.Write("+ " + Board[i, j] + " ");
+					Console.Write("+ ");
 				else
-					Console.Write("| " + Board[i, j] + " ");
+					Console.Write("| ");
+
+				if (wrongFields[i, j])
+					Console.ForegroundColor = ConsoleColor.Red;
+
+				Console.Write(Board[i, j] + " ");
+				Console.ResetColor();
 			}
 			Console.WriteLine("+");
 		}
 		Console.WriteLine("+++++++++++++++++++++++++++++++++++++");
 	}
 
+	public bool[,] WrongFields()
+	{
+		int[,] row = new int[9, 10];
+		int[,] col = new int[9, 10];
+		int[,] box = new int[9, 10];
+		bool[,] wrong = new bool[9, 9];
+
+		for (int i = 0; i < 9; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				row[i, Board[i, j]]++;
+				col[j, Board[i, j]]++;
+				box[(i / 3) * 3 + j / 3, Board[i, j]]++;
+			}
+		}
+		for (int i = 0; i < 9; i++)
+		{
+			for (int j = 0; j < 9; j++)
+			{
+				if (row[i, Board[i, j]] > 1 || col[j, Board[i, j]] > 1 || box[(i / 3) * 3 + j / 3, Board[i, j]] > 1)
+					wrong[i, j] = true;
+				else
+					wrong[i, j] = false;
+			}
+		}
+		return wrong;
+	}
 
 	// if score is 0 sudoku is solved, if higher score the sudoku solution is worse
 	public int Score()
