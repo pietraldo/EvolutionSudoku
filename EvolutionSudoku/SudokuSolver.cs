@@ -19,8 +19,14 @@ namespace EvolutionSudoku
 		}
 		public DNA Solve()
 		{
+			float crossoverChance = 0.2f;
 			float mutationChance = 0.1f;
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(10000,100,mutationChance,5000, 0.1f);
+			int startPopulation = 1000;
+			int choosenCount = 10;
+			int maxGenerations = 5000;
+
+
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(startPopulation,choosenCount,mutationChance,maxGenerations, crossoverChance);
 
 			GeneticAlgorytm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
@@ -36,10 +42,9 @@ namespace EvolutionSudoku
 
 				int iterationBestScore = algorythm.BestScore();
 				if (iterationBestScore < bestScore)
-				{
 					bestScore = iterationBestScore;
-				}
 
+				// if 3 at row scores where the same then increase mutation chance to not get stuck in local minimum
 				if (iterationBestScore == prevScore && prevprevScore==prevScore)
 				{
 					algorythm.algorytmParameters.MutationChance = 0.8f; 
