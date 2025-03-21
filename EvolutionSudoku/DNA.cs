@@ -16,7 +16,11 @@ public class DNA
 
 	public void Print()
 	{
-
-	}
+		for(int i=0; i<digits.Length; i++)
+		{
+			Console.Write(digits[i]);
+		}
+        Console.WriteLine();
+    }
 }
 
