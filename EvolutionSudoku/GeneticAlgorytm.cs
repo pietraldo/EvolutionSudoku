@@ -32,9 +32,17 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 	{
 		foreach (DNA dna in Population)
 		{
-			dna.score=Board.Fit(dna).Score();
+			dna.score = Board.Fit(dna).Score();
+			dna.Print();
+            Console.WriteLine(dna.score);
 		}
 		Population = Population.OrderBy(dna => dna.score).ToArray();
+
+		foreach (DNA dna in Population)
+		{
+			dna.Print();
+			Console.WriteLine(dna.score);
+		}
 
 		List<DNA> childrens = new List<DNA>();
 		while(childrens.Count<algorytmParameters.PopulationCount)
@@ -49,6 +57,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 			MutateDNA(child);
 			childrens.Add(child);
 		}
+		Population = childrens.ToArray();
 	}
 
 	public void MutateDNA(DNA dna)
@@ -81,6 +90,9 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 			}
 			child.digits[i] = parent.digits[i];
 		}
+		//parent1.Print();
+		//parent2.Print();
+		//child.Print();
 		return child;
 	}
 
