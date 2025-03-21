@@ -32,7 +32,19 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 
 	public PopulationStatistics GetPopulationStatistics()
 	{
-		throw new NotImplementedException();
+		List<int> scores = new List<int>();
+		foreach (DNA dna in Population)
+		{
+			scores.Add(Board.Fit(dna).Score());
+		}
+		scores.Sort();
+
+		foreach (int score in scores)
+		{
+			Console.WriteLine(score);
+		}
+
+		return new PopulationStatistics();
 	}
 
 	public bool IsSolved()

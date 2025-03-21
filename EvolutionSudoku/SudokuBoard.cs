@@ -23,7 +23,13 @@ public class SudokuBoard
 
 	public SudokuBoard(SudokuBoard board)
 	{
-
+		for(int i =0; i < 9; i++)
+		{
+			for(int j = 0; j < 9; j++)
+			{
+				Board[i, j] = board.Board[i, j];
+			}
+		}
 	}
 
 
@@ -119,7 +125,7 @@ public class SudokuBoard
 		}
 		for(int i = 0; i < 9; i++)
 		{
-			for (int j = 1; j <= 9; j++)
+			for (int j = 0; j <= 9; j++)
 			{
 				if (row[i, j] > 1)
 					count+=row[i,j]-1;
@@ -135,7 +141,22 @@ public class SudokuBoard
 	// it fill sudoku board with dna and returns new sudoku board
 	public SudokuBoard Fit(DNA dna)
 	{
-		return new SudokuBoard();
+		SudokuBoard board = new SudokuBoard(this);
+		int index = 0;
+
+		for(int i=0; i< 9; i++)
+		{
+			for(int j=0; j<9; j++)
+			{
+				if (board.Board[i, j] == 0)
+				{
+					board.Board[i, j] = dna.digits[index];
+					index++;
+				}
+			}
+		}
+
+		return board;
 	}
 }
 
