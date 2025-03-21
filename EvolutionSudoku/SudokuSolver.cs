@@ -20,7 +20,7 @@ namespace EvolutionSudoku
 		public DNA Solve()
 		{
 			float mutationChance = 0.1f;
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(1000,20,mutationChance,1000, 0.4f);
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(10000,100,mutationChance,5000, 0.1f);
 
 			GeneticAlgorytm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
@@ -42,8 +42,9 @@ namespace EvolutionSudoku
 
 				if (iterationBestScore == prevScore && prevprevScore==prevScore)
 				{
-					algorythm.algorytmParameters.MutationChance = 0.7f;
-				}
+					algorythm.algorytmParameters.MutationChance = 0.8f; 
+					Console.WriteLine("Big mutation");
+                }
 				else
 				{
 					algorythm.algorytmParameters.MutationChance = mutationChance;
