@@ -8,7 +8,7 @@ namespace EvolutionSudoku;
 public class DNA
 {
 	public int[] digits;
-	public int score;
+	public int score=int.MaxValue;
 
 	public DNA(int length)
 	{

@@ -19,7 +19,7 @@ namespace EvolutionSudoku
 		}
 		public DNA Solve()
 		{
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(1000,20,0.1f,1000, 0.3f);
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(1000,50,0.1f,1000, 0.2f);
 
 			ISudokuAlgorythm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
@@ -32,7 +32,7 @@ namespace EvolutionSudoku
 
 				iterations++;
 			}
-			return new DNA(new int[81]);
+			return algorythm.GetBestDNA();
 		}
 	}
 }

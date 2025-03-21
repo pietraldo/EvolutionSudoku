@@ -30,21 +30,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 
 	public void GenerateNextGeneration()
 	{
-		foreach (DNA dna in Population)
-		{
-			dna.score = Board.Fit(dna).Score();
-			dna.Print();
-            Console.WriteLine(dna.score);
-		}
-		Population = Population.OrderBy(dna => dna.score).ToArray();
-
-		foreach (DNA dna in Population)
-		{
-			dna.Print();
-			Console.WriteLine(dna.score);
-		}
-
-		List<DNA> childrens = new List<DNA>();
+        List<DNA> childrens = new List<DNA>();
 		while(childrens.Count<algorytmParameters.PopulationCount)
 		{
 			int RandomIndex1 = new Random().Next(0, algorytmParameters.SelectedBestCount);
@@ -58,6 +44,14 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 			childrens.Add(child);
 		}
 		Population = childrens.ToArray();
+
+		foreach (DNA dna in Population)
+		{
+			dna.score = Board.Fit(dna).Score();
+		}
+		Population = Population.OrderBy(dna => dna.score).ToArray();
+		
+		Console.WriteLine(Population[0].score);
 	}
 
 	public void MutateDNA(DNA dna)
@@ -113,6 +107,11 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 
 	public bool IsSolved()
 	{
-		return false;
+		return Population[0].score==0;
+	}
+
+	public DNA GetBestDNA()
+	{
+		return Population[0];
 	}
 }

@@ -18,6 +18,11 @@ public class EvolutionAlgorytm : ISudokuAlgorythm
 		throw new NotImplementedException();
 	}
 
+	public DNA GetBestDNA()
+	{
+		throw new NotImplementedException();
+	}
+
 	public PopulationStatistics GetPopulationStatistics()
 	{
 		throw new NotImplementedException();
