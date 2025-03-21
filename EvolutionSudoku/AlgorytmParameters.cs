@@ -11,7 +11,7 @@ public class AlgorytmParameters
 	public int SelectedBestCount { get; set; }
 	public float MutationChance { get; set; }
 	public int MaxGenerations { get; set; }
-	public int SplitDNACount { get; set; }
+	public float SplitChance { get; set; }
 
 	public AlgorytmParameters()
 	{
@@ -19,15 +19,15 @@ public class AlgorytmParameters
 		SelectedBestCount = 2;
 		MutationChance = 0.1f;
 		MaxGenerations = 100;
-		SplitDNACount = 2;
+		SplitChance = 0.1f;
 	}
-	public AlgorytmParameters(int populationCount, int selectedBestCount, float mutationChance, int maxGenerations, int splitDNACount)
+	public AlgorytmParameters(int populationCount, int selectedBestCount, float mutationChance, int maxGenerations, float splitDNACount)
 	{
 		PopulationCount = populationCount;
 		SelectedBestCount = selectedBestCount;
 		MutationChance = mutationChance;
 		MaxGenerations = maxGenerations;
-		SplitDNACount = splitDNACount;
+		SplitChance = splitDNACount;
 	}
 }
 

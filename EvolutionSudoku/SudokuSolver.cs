@@ -19,14 +19,18 @@ namespace EvolutionSudoku
 		}
 		public DNA Solve()
 		{
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(5,2,0.1f,10,2);
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(50,10,0.1f,100, 0.2f);
 
 			ISudokuAlgorythm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
-			while (!algorythm.IsSolved())
+
+			int iterations = 0;
+			while (!algorythm.IsSolved() && iterations<algorytmParameters.MaxGenerations)
 			{
 				algorythm.GenerateNextGeneration();
 				algorythm.GetPopulationStatistics().Print();
+
+				iterations++;
 			}
 			return new DNA(new int[81]);
 		}

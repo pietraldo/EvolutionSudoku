@@ -8,6 +8,16 @@ namespace EvolutionSudoku;
 public class DNA
 {
 	public int[] digits;
+	public int score;
+
+	public DNA(int length)
+	{
+		digits = new int[length];
+		for (int i =0; i<length;i++)
+		{
+			digits[i] = 0;
+		}
+	}
 
 	public DNA(int[] digits)
 	{ 
