@@ -19,20 +19,42 @@ namespace EvolutionSudoku
 		}
 		public DNA Solve()
 		{
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(1000,20,0.1f,10, 0.2f);
+			float mutationChance = 0.1f;
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(1000,20,mutationChance,1000, 0.4f);
 
-			ISudokuAlgorythm algorythm = new GeneticAlgorytm(algorytmParameters, board);
+			GeneticAlgorytm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
 
+			int bestScore = algorythm.BestScore();
 			int iterations = 0;
+			int prevprevScore = algorythm.BestScore();
+			int prevScore = algorythm.BestScore();
 			while (!algorythm.IsSolved() && iterations<algorytmParameters.MaxGenerations)
 			{
 				algorythm.GenerateNextGeneration();
 				algorythm.GetPopulationStatistics().Print();
 
+				int iterationBestScore = algorythm.BestScore();
+				if (iterationBestScore < bestScore)
+				{
+					bestScore = iterationBestScore;
+				}
+
+				if (iterationBestScore == prevScore && prevprevScore==prevScore)
+				{
+					algorythm.algorytmParameters.MutationChance = 0.7f;
+				}
+				else
+				{
+					algorythm.algorytmParameters.MutationChance = mutationChance;
+				}
+				prevprevScore = prevScore;
+				prevScore = iterationBestScore;
+
 				iterations++;
 			}
-			return algorythm.GetBestDNA();
+            Console.WriteLine("Best score: "+bestScore);
+            return algorythm.GetBestDNA();
 		}
 	}
 }

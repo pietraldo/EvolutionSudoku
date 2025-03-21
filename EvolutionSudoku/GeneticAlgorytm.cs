@@ -10,7 +10,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 {
 	public DNA[] Population;
 	public readonly SudokuBoard Board;
-	AlgorytmParameters algorytmParameters;
+	public AlgorytmParameters algorytmParameters;
 
 	public GeneticAlgorytm(AlgorytmParameters algorytmParameters, SudokuBoard board)
 	{
@@ -56,7 +56,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 
 	public void MutateDNA(DNA dna)
 	{
-		for (int i = 0; i < dna.digits.Length; i++)
+        for (int i = 0; i < dna.digits.Length; i++)
 		{
 			if (new Random().NextDouble() < algorytmParameters.MutationChance)
 			{
@@ -105,9 +105,14 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 		return new PopulationStatistics();
 	}
 
+	public int BestScore()
+	{
+		return Population[0].score;
+	}
+
 	public bool IsSolved()
 	{
-		return Population[0].score==0;
+		return Population[0].score == 0;
 	}
 
 	public DNA GetBestDNA()
