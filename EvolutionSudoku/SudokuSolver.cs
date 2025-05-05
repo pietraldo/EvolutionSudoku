@@ -9,9 +9,9 @@ namespace EvolutionSudoku
 	public class SudokuSolver
 	{
 		public SudokuBoard board;
-		public SudokuSolver() 
-		{ 
-		
+		public SudokuSolver()
+		{
+
 		}
 		public void SetBoard(SudokuBoard board)
 		{
@@ -26,7 +26,7 @@ namespace EvolutionSudoku
 			int maxGenerations = 5000;
 
 
-			AlgorytmParameters algorytmParameters = new AlgorytmParameters(startPopulation,choosenCount,mutationChance,maxGenerations, crossoverChance);
+			AlgorytmParameters algorytmParameters = new AlgorytmParameters(startPopulation, choosenCount, mutationChance, maxGenerations, crossoverChance, 1, 1);
 
 			GeneticAlgorytm algorythm = new GeneticAlgorytm(algorytmParameters, board);
 			algorythm.GetPopulationStatistics().Print();
@@ -35,7 +35,7 @@ namespace EvolutionSudoku
 			int iterations = 0;
 			int prevprevScore = algorythm.BestScore();
 			int prevScore = algorythm.BestScore();
-			while (!algorythm.IsSolved() && iterations<algorytmParameters.MaxGenerations)
+			while (!algorythm.IsSolved() && iterations < algorytmParameters.MaxGenerations)
 			{
 				algorythm.GenerateNextGeneration();
 				algorythm.GetPopulationStatistics().Print();
@@ -45,11 +45,11 @@ namespace EvolutionSudoku
 					bestScore = iterationBestScore;
 
 				// if 3 at row scores where the same then increase mutation chance to not get stuck in local minimum
-				if (iterationBestScore == prevScore && prevprevScore==prevScore)
+				if (iterationBestScore == prevScore && prevprevScore == prevScore)
 				{
-					algorythm.algorytmParameters.MutationChance = 0.8f; 
+					algorythm.algorytmParameters.MutationChance = 0.8f;
 					Console.WriteLine("Big mutation");
-                }
+				}
 				else
 				{
 					algorythm.algorytmParameters.MutationChance = mutationChance;
@@ -59,8 +59,8 @@ namespace EvolutionSudoku
 
 				iterations++;
 			}
-            Console.WriteLine("Best score: "+bestScore);
-            return algorythm.GetBestDNA();
+			Console.WriteLine("Best score: " + bestScore);
+			return algorythm.GetBestDNA();
 		}
 	}
 }
