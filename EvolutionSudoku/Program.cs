@@ -11,6 +11,35 @@ public class Program
         Console.WriteLine(" Created: 2025-05");
         Console.WriteLine("================================\n");
 
+        while(true)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Select an option:");
+            Console.WriteLine("1. Solve Sudoku");
+            Console.WriteLine("2. Exit");
+            Console.Write("Choice: ");
+
+            string choice = Console.ReadLine();
+
+            if (choice == "1")
+            {
+                SolveSudoku();
+            }
+            else if (choice == "2")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void SolveSudoku()
+    {
         // Prompt for board file path
         Console.Write("Enter the path to the board file: ");
         string boardPath = Console.ReadLine();
