@@ -14,9 +14,14 @@ namespace EvolutionSudoku
 		public int WorstScored;
 
 		public PopulationStatistics() { }
-		public void Print()
-		{
-
-		}
-	}
+        public void Print()
+        {
+            Console.WriteLine("===== Population Statistics =====");
+            Console.WriteLine($"{"Population Count:",-20} {PopulationCount}");
+            Console.WriteLine($"{"Population Score:",-20} {PopulationScore:F2}");
+            Console.WriteLine($"{"Best Scored:",-20} {BestScored}");
+            Console.WriteLine($"{"Worst Scored:",-20} {WorstScored}");
+            Console.WriteLine("=================================");
+        }
+    }
 }

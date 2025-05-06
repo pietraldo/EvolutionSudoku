@@ -8,8 +8,8 @@ namespace EvolutionSudoku
 {
 	public class EvolutionAlgorytm : ISudokuAlgorythm
 	{
-		private readonly AlgorytmParameters _parameters;
-		private readonly SudokuBoard _board;
+		public AlgorytmParameters AlgorytmParameters { get; set; }
+        private readonly SudokuBoard _board;
 		private readonly List<(int row, int col)> _emptyPositions;
 		private readonly Random _rnd = new Random();
 
@@ -17,7 +17,7 @@ namespace EvolutionSudoku
 
 		public EvolutionAlgorytm(AlgorytmParameters parameters, SudokuBoard board)
 		{
-			_parameters = parameters;
+            AlgorytmParameters = parameters;
 			_board = board;
 
 			_emptyPositions = new List<(int, int)>();
@@ -27,8 +27,8 @@ namespace EvolutionSudoku
 						_emptyPositions.Add((i, j));
 
 			int geneLength = _emptyPositions.Count;
-			Population = new DNA[_parameters.PopulationCount];
-			for (int i = 0; i < _parameters.PopulationCount; i++)
+			Population = new DNA[AlgorytmParameters.PopulationCount];
+			for (int i = 0; i < AlgorytmParameters.PopulationCount; i++)
 			{
 				var dna = new DNA(new int[geneLength]);
 				dna.SetRandomDNA();
@@ -41,15 +41,15 @@ namespace EvolutionSudoku
 
 		public void GenerateNextGeneration()
 		{
-			var nextGen = new List<DNA>(_parameters.PopulationCount);
+			var nextGen = new List<DNA>(AlgorytmParameters.PopulationCount);
 
-			while (nextGen.Count < _parameters.PopulationCount)
+			while (nextGen.Count < AlgorytmParameters.PopulationCount)
 			{
-				var parent1 = Population[_rnd.Next(_parameters.SelectedBestCount)];
-				var parent2 = Population[_rnd.Next(_parameters.SelectedBestCount)];
+				var parent1 = Population[_rnd.Next(AlgorytmParameters.SelectedBestCount)];
+				var parent2 = Population[_rnd.Next(AlgorytmParameters.SelectedBestCount)];
 
 				for (int k = 0;
-					 k < _parameters.ChildrenCount && nextGen.Count < _parameters.PopulationCount;
+					 k < AlgorytmParameters.ChildrenCount && nextGen.Count < AlgorytmParameters.PopulationCount;
 					 k++)
 				{
 					var child = CrossDNA(parent1, parent2);
@@ -68,7 +68,7 @@ namespace EvolutionSudoku
 			int len = p1.digits.Length;
 			var child = new DNA(new int[len]);
 
-			int P = Math.Max(1, _parameters.DNAParts);
+			int P = Math.Max(1, AlgorytmParameters.DNAParts);
 			var cuts = new HashSet<int>();
 			while (cuts.Count < P - 1)
 				cuts.Add(_rnd.Next(1, len));
@@ -123,7 +123,7 @@ namespace EvolutionSudoku
 		{
 			for (int i = 0; i < dna.digits.Length; i++)
 			{
-				if (_rnd.NextDouble() < _parameters.MutationChance)
+				if (_rnd.NextDouble() < AlgorytmParameters.MutationChance)
 					dna.digits[i] = _rnd.Next(1, 10);
 			}
 		}

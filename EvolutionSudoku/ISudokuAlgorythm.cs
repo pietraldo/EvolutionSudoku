@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace EvolutionSudoku;
 public interface ISudokuAlgorythm
 {
-	public void GenerateNextGeneration();
+	public AlgorytmParameters AlgorytmParameters { get; set; }
+    public void GenerateNextGeneration();
 	public PopulationStatistics GetPopulationStatistics();
 	public bool IsSolved();
 

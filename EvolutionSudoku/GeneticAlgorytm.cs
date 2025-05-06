@@ -10,14 +10,14 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 {
 	public DNA[] Population;
 	public readonly SudokuBoard Board;
-	public AlgorytmParameters algorytmParameters;
+	public AlgorytmParameters AlgorytmParameters { get; set; }
 
 	public GeneticAlgorytm(AlgorytmParameters algorytmParameters, SudokuBoard board)
 	{
 		// generates randomly population
 		Population = new DNA[algorytmParameters.PopulationCount];
 		Board = board;
-		this.algorytmParameters = algorytmParameters;
+		this.AlgorytmParameters = algorytmParameters;
 		for (int i = 0; i < algorytmParameters.PopulationCount; i++)
 		{
 			Population[i] = new DNA(new int[board.CountEmptyFields()]);
@@ -31,10 +31,10 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 	public void GenerateNextGeneration()
 	{
         List<DNA> childrens = new List<DNA>();
-		while(childrens.Count<algorytmParameters.PopulationCount)
+		while(childrens.Count< AlgorytmParameters.PopulationCount)
 		{
-			int RandomIndex1 = new Random().Next(0, algorytmParameters.SelectedBestCount);
-			int RandomIndex2 = new Random().Next(0, algorytmParameters.SelectedBestCount);
+			int RandomIndex1 = new Random().Next(0, AlgorytmParameters.SelectedBestCount);
+			int RandomIndex2 = new Random().Next(0, AlgorytmParameters.SelectedBestCount);
 
 			DNA parent1 = Population[RandomIndex1];
 			DNA parent2 = Population[RandomIndex2];
@@ -58,7 +58,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 	{
         for (int i = 0; i < dna.digits.Length; i++)
 		{
-			if (new Random().NextDouble() < algorytmParameters.MutationChance)
+			if (new Random().NextDouble() < AlgorytmParameters.MutationChance)
 			{
 				dna.digits[i] = new Random().Next(1, 10);
 			}
@@ -71,7 +71,7 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 		DNA parent = parent1;
 		for (int i=0; i< parent1.digits.Length; i++)
 		{
-			if(new Random().NextDouble() < algorytmParameters.SplitChance)
+			if(new Random().NextDouble() < AlgorytmParameters.SplitChance)
 			{
 				if(parent==parent1)
 				{
@@ -95,15 +95,17 @@ public class GeneticAlgorytm : ISudokuAlgorythm
 		List<int> scores = new List<int>();
 		foreach (DNA dna in Population)
 		{
-			//dna.Print();
 			scores.Add(Board.Fit(dna).Score());
 		}
-		scores.Sort();
 
-        Console.WriteLine(scores.First());
-
-		return new PopulationStatistics();
-	}
+        return new PopulationStatistics
+        {
+            PopulationCount = scores.Count,
+            PopulationScore = scores.Average(),
+            BestScored = scores.Min(),
+            WorstScored = scores.Max()
+        };
+    }
 
 	public int BestScore()
 	{
